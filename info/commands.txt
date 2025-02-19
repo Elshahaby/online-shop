@@ -1,0 +1,49 @@
+npm init -y 
+    To iniate package.json file that contains my scripts and dependences
+
+git init 
+    To iniate a git repo in that file ..\projects\online shop
+
+git add .
+    To add all Untracked and Modified files to the next commit
+
+
+git commit -m "Inital commit adding my package.json and text file I will put all my used command in the project"
+    To commit the work I do as inital commit, it will used more and more after every modification in my project
+
+git remote add origin https://github.com/Elshahaby/online-shop.git
+    To make a remote repo in my project 
+
+git branch -M main 
+    To rename by branch from master to main
+
+git push -u origin main
+    To push my local commits to the remote repo
+
+git remote -v 
+    display your remotes
+git branch  or git branch -v or git branch --all
+    normal or detailed information about your branch
+
+npm i --save express mongodb mongoose ejs
+    To install my main used package, I will use in my project and I will use it a lot during working on it
+
+npm i typescript @types/express @types/node --save-dev
+    To install typescript and type definitions for express and node modules to make typescript able to perform type checking
+    as devDependencies.
+
+
+npm i dotenv
+    To load environment variables from a `.env` file into `process.env`.
+
+npm i tsx
+     This run time tool compiles the file.ts on the fly and executes it, showing the output directly.
+
+tsc --init
+    To create my typescript config file
+
+npm i express-sessions connect-mongo connect-flash
+
+npm i --save-dev @types/express-session @types/connect-mongo @types/connect-flash
+
+npm i --save zod

@@ -1,3 +1,0 @@
-npm init -y 
-    To iniate package.json file that contains my scripts and dependences
-

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+</head>
+<body>
+  <h1>Login</h1>
+
+    <!-- Display success messages -->
+    <% if (query.message) { %>
+      <div style="color: green;">
+        <%= query.message %>
+      </div>
+    <% } %>
+    <!-- Display success messages -->
+    <% if (success) { %>
+      <div style="color: green;">
+        <%= success %>
+      </div>
+    <% } %>
+
+    <!-- Display error messages -->
+    <% if (errors && errors.length > 0) { %>
+        <div style="color: red;">
+            <div class="error">
+                <% errors.forEach(msg => { %>
+                    <p><%= msg %></p>
+                    <!-- <br> -->
+                <% }) %>
+            </div>
+        </div>
+    <% } %>
+
+  <form action="/auth/login" method="POST">
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email">
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+    </div>
+    <button type="submit">Login</button>
+  </form>
+
+  <p>Don't have an account? <a href="/auth/signup">Register here</a>.</p>
+</body>
+</html>
