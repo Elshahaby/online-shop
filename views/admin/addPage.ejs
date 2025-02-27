@@ -1,0 +1,49 @@
+<%- include('../parts/adminheader.ejs')%>
+<%- include('../parts/adminnav.ejs')%>
+<%- include('../messages.ejs')%>
+
+<link rel="stylesheet" href="/css/adminAddAndEditPagesStyle.css">
+
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="page-title">📝 Add a New Page</h2>
+        <a href="/admin/pages" class="btn btn-dark back-button">
+            ⬅ Back to All Pages
+        </a>
+    </div>
+</div>
+
+<br>
+
+<div class="container dark-theme card shadow p-4">
+    <form action="/admin/pages/addpage" method="POST">
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-heading text-primary"></i> Page Title
+            </label>
+            <input type="text" class="form-control form-control-lg bg-dark text-white border-secondary" 
+                name="title" value="<%= userInput.title || '' %>" placeholder="Enter the page title here">
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-link text-primary"></i> Slug <span class="text-muted">(Auto-generated if left empty)</span>
+            </label>
+            <input type="text" class="form-control bg-dark text-white border-secondary" 
+                name="slug" value="<%= userInput.slug || '' %>" placeholder="Enter a custom slug (optional)">
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-edit text-primary"></i> Page Content
+            </label>
+            <textarea name="content" id="editor" class="form-control bg-dark text-white border-secondary" 
+                rows="6" placeholder="Write your page content here..."><%= userInput.content ? userInput.content.trim() : '' %></textarea>
+        </div>        
+
+        <button type="submit" class="btn btn-success w-100">
+            🚀 Create Page
+        </button>
+    </form>
+</div>

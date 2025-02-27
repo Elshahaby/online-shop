@@ -1,0 +1,48 @@
+<%- include('../parts/adminheader.ejs')%>
+<%- include('../parts/adminnav.ejs')%>
+<%- include('../messages.ejs')%>
+
+<link rel="stylesheet" href="/css/adminPages.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="page-title text-primary">Pages</h2>
+        <a href="/admin/pages/addPage" class="btn btn-success shadow-sm">➕ Add a New Page</a>
+    </div>
+</div>
+
+<br>
+
+<table class="table table-striped table-bordered table-hover table-dark sorting">
+    <thead>
+        <tr class="home">
+            <th scope="col">Title</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <% pages.forEach( page => { %>
+            <tr id="id_<%= page._id %>" class="<%= page.slug %> draggable-row">
+                <td> <%= page.title %> </td>
+                <td>
+                    <a href="/admin/pages/editPage/<%= page.slug %>" class="btn btn-sm btn-warning">✏️ Edit</a>
+                </td>
+                <% if(page.slug === "home") { %>
+                <td></td>
+                <% } else { %>
+                <td>
+                    <a href="/admin/pages/deletePage/<%= page._id %>" class="btn btn-sm btn-danger delete-btn">🗑️ Delete</a>
+                </td>
+                <% } %>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+
+
+<%- include('../parts/adminfooter.ejs')%>

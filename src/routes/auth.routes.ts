@@ -1,7 +1,7 @@
 import express,{Request, Response} from 'express'
 import {getSignUp, postSignUp} from '../controllers/auth.controller'
 import { getLogin, postLogin } from '../controllers/auth.controller';
-import { errorHandlerFunction } from '../middlewares/errorHandlerFunction.middleware';
+import { errorHandlerFunction } from '../middlewares/errorHandlerWithRedirection.middleware';
 import {User} from '../models'
 
 const router = express.Router();

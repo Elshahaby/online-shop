@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container">
+      <a class="navbar-brand fw-bold text-uppercase" href="/" target="_blank">Online Shop</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+              <li class="nav-item">
+                  <a class="nav-link <%= (title === 'Admin Pages') ? 'active' : '' %>" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link <%= (title === 'pages') ? 'active' : '' %>" href="/admin/pages">Pages</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="#">Link</a>
+              </li>
+          </ul>
+
+          <form class="d-flex">
+              <input class="form-control me-2 search-bar" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-light" type="submit">🔍</button>
+          </form>
+      </div>
+  </div>
+</nav>
+
+<style>
+  /* Navbar Styling */
+  .navbar {
+      border-bottom: 3px solid #ffc107;
+  }
+
+  .navbar-brand {
+      font-size: 20px;
+      letter-spacing: 1px;
+  }
+
+  .nav-link {
+      transition: 0.3s;
+  }
+
+  .nav-link:hover {
+      color: #ffc107 !important;
+      transform: scale(1.1);
+  }
+
+  .nav-link.active {
+      font-weight: bold;
+      color: #ffc107 !important;
+  }
+
+  /* Search Bar Styling */
+  .search-bar {
+      border-radius: 20px;
+      padding-left: 15px;
+  }
+</style>
+
+<br>
+<div class="container">

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { signUpSchema, SignUp } from '../validators/auth.validator'
 import { User } from '../models'
-import { errorHandlerFunction } from '../middlewares/errorHandlerFunction.middleware'
+import { errorHandlerFunction } from '../middlewares/errorHandlerWithRedirection.middleware'
 import { Login, loginSchema } from '../validators/auth.validator';
 
 

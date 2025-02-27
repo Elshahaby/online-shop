@@ -1,0 +1,18 @@
+body {
+    background: #222 !important;  /* Dark background */
+    color: #fff !important;  /* White text */
+    font-family: Arial, sans-serif;
+}
+
+p {
+    color: #ddd !important;  /* Lighter text */
+}
+
+a {
+    color: #00d9ff !important;  /* Highlight links */
+}
+
+.cke_editable {
+    background: #222 !important;  /* Dark editor background */
+    color: #fff !important;  /* White text */
+}

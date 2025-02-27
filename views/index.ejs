@@ -1,35 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
+<%- include('./parts/header.ejs')%>
+<%- include('./parts/nav.ejs')%>
+
+
 
         <h1>Welcome to the Home Page</h1>
     
-        <!-- Display success messages -->
-        <% if (success && success.length > 0) { %>
-            <div class="success" style="color: green;">
-            <!-- array of strings -->
-            <% success.forEach(msg => { %>
-                <p><%= msg %></p>
-            <% }) %>
-            </div>
-        <% } %>
-    
-        <!-- Display error messages -->
-        <% if (errors && errors.length > 0) { %>
-            <div style="color: red;">
-                <div class="error">
-                    <% errors.forEach(msg => { %>
-                        <p><%= msg %></p>
-                        <!-- <br> -->
-                    <% }) %>
-                </div>
-            </div>
-        <% } %>
+        <%- include('./messages.ejs')%>
+
 
         <% if (userId) { %>
             <p>You are logged in. <a href="/auth/logout">Logout</a></p>
@@ -37,5 +14,5 @@
             <p>You are not logged in. <a href="/auth/login">Login</a> or <a href="/auth/signup">Register</a>.</p>
         <% } %>
 
-</body>
-</html>
+
+<%- include('./parts/footer.ejs')%>
