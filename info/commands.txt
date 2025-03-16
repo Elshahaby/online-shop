@@ -47,3 +47,7 @@ npm i express-sessions connect-mongo connect-flash
 npm i --save-dev @types/express-session @types/connect-mongo @types/connect-flash
 
 npm i --save zod
+
+npm i --save slugify
+
+npm i multer fs-extra sharp

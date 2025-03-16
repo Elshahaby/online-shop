@@ -1,0 +1,30 @@
+
+/* Navbar Styling */
+.navbar {
+    border-bottom: 3px solid #ffc107;
+}
+
+.navbar-brand {
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: #ffc107 !important;
+    transform: scale(1.1);
+}
+
+.nav-link.active {
+    font-weight: bold;
+    color: #ffc107 !important;
+}
+
+/* Search Bar Styling */
+.search-bar {
+    border-radius: 20px;
+    padding-left: 15px;
+}

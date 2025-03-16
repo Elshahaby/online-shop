@@ -1,0 +1,67 @@
+<%- include('../parts/adminheader.ejs')%>
+<%- include('../parts/adminnav.ejs')%>
+<%- include('../messages.ejs')%>
+
+<link rel="stylesheet" href="/css/tablePagesStyles.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/confirmDeletion.js" defer></script>
+
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="page-title text-primary">Products</h2>
+        <a href="/admin/products/addProduct" class="btn btn-success shadow-sm">➕ Add a New Product</a>
+    </div>
+</div>
+
+<br>
+
+<% if(count > 0) { %>
+    
+    <table class="table table-striped table-bordered table-hover table-dark">
+        <thead>
+            <tr class="home">
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Category</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Product Image</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        <% products.forEach( product => { %>
+            <tr id="id_<%= product._id %>" class="<%= product.slug %> draggable-row">
+                <td class="align-middle"> <%= product.title %> </td>
+                <td class="align-middle"> <%= parseFloat(product.price).toFixed(2) %> </td>
+                <td class="align-middle"> <%= product.category ? product.category.title : "No Category" %> </td>
+                <td class="align-middle"> <%= parseInt(product.stock) %> </td>
+                <td class="align-middle"> 
+                    <% if(!product.images || product.images.length === 0) { %>   
+                        <!-- <img src="/uploads/noimage.png" class="product-image">     -->
+                        <img src="/uploads/noimage2.png" class="product-image">    
+                    <% } else { %>   
+                        <% product.images.forEach( image => {  %> 
+                            <img src="<%= image %>" alt="Product Image" class="product-image">
+                        <% }) %> 
+                    <% } %>   
+                </td>
+                <td class="align-middle">
+                    <a href="/admin/products/editProduct/<%= product.slug %>" class="btn btn-sm btn-warning">✏️ Edit</a>
+                </td>
+                <td class="align-middle">
+                    <a href="/admin/products/deleteProduct/<%= product.id %>" class="btn btn-sm btn-danger delete-btn">🗑️ Delete</a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    
+    <% } else { %>
+        <h3 class="text-center page-title text-primary">There are not Products</h3>
+    <% } %>
+    
+    
+    <%- include('../parts/adminfooter.ejs')%>
+    

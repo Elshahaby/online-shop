@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const path = editor.editing.view;
 
         path.change(writer => {
-            writer.setStyle('background-color', '#333', root);
+            writer.setStyle('background-color', '#222', root);
             writer.setStyle('color', '#eee', root);
             writer.setStyle('min-height', '150px', root);
             writer.setStyle('padding', '10px', root);
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         editor.editing.view.document.on("focus", () => {
             path.change(writer => {
-                writer.setStyle("background-color", "#333", root);
+                writer.setStyle("background-color", "#222", root);
                 writer.setStyle("color", "#fff", root);
                 writer.setStyle("border-color", "#00d9ff", root);
                 writer.setStyle("box-shadow", "0 0 8px rgba(0, 217, 255, 0.4)", root);

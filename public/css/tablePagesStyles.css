@@ -1,0 +1,136 @@
+    /* Global Dark Theme */
+    body {
+        background-color: #121212; /* Dark background */
+        color: #e0e0e0; /* Light text */
+    }
+
+    /* Style the Page Title */
+    .page-title {
+        color: #99a1af;
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+    /* Style the Table */
+    .table {
+        border-radius: 8px;
+        border-spacing: 0; /* Keep spacing the same */
+        overflow: hidden;
+        border-collapse: separate !important; /* Fixes Bootstrap's default collapse */
+    }
+
+
+    /* Style Table Header */
+    .table thead th {
+        background-color: #343a40 !important;
+        color: white !important;
+        text-align: center;
+    }
+
+    /* Apply border-radius to top corners (thead) */
+    .table thead th:first-child {
+        border-top-left-radius: 10px;
+    }
+    .table thead th:last-child {
+        border-top-right-radius: 10px;
+    }
+
+    /* Apply border-radius to bottom corners (tbody last row) */
+    .table tbody tr:last-child td:first-child {
+        border-bottom-left-radius: 10px;
+    }
+    .table tbody tr:last-child td:last-child {
+        border-bottom-right-radius: 10px;
+    }
+
+    /* Style Rows */
+    .draggable-row {
+        cursor: grab;
+        transition: background 0.2s ease-in-out;
+    }
+
+    /* When Dragging */
+    .ui-sortable-helper {
+        background-color: #ffc107 !important; /* Highlight dragged row */
+        border: 2px dashed #ff5722 !important; /* Dashed border */
+        opacity: 0.9;
+    }
+
+    /* Placeholder Row */
+    .ui-state-highlight {
+        background-color: #007bff !important;
+        border: 2px dashed #ffffff !important;
+        height: 50px;
+        visibility: visible !important;
+    }
+
+    /* Hover Effects */
+    .table tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* Button Hover Effects */
+    .btn-warning:hover {
+        background-color: #e0a800 !important;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333 !important;
+    }
+
+    .table td, .table th {
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    .product-image {
+        max-width: 75px;
+        max-height: 75px; 
+        object-fit: cover;
+        width: 100%;
+        border-radius: 5px;
+    }
+
+
+
+
+    /* Footer */
+    .footer {
+        background: #222;
+        color: #ddd;
+        text-align: center;
+        padding: 20px;
+        border-top: 2px solid #ffc107;
+    }
+    
+    /* 
+    .table td, .table th {
+        border-radius: 5px;
+    } */
+    
+    .total-price {
+        font-size: 20px;
+        font-weight: bold;
+        color: #28a745;
+        text-align: left;
+        padding: 10px 0;
+    }
+
+    .btn-warning:hover {
+        background-color: #ffcd39 !important;
+        color: black !important;
+    }
+    
+    .btn-danger:hover {
+        background-color: #e60000 !important;
+    }
+
+    /* Make Borders White */
+.table td, .table th {
+    border: 1px solid #99a1af !important; /* White borders between cells */
+    background-color: #222; /* Dark cell background */
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+

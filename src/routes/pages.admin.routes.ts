@@ -1,11 +1,11 @@
-import express from 'express'
+import { Router } from 'express'
 
 import { 
     getAdminPages, getAddPages, postAddPage,
     postReorderPages, getEditPage, postEditPage, deletePage
- } from '../controllers/pages.controller'
+ } from '../controllers/pages.admin.controller'
  
-const router = express.Router();
+const router = Router();
 
 // admin pages routes
 

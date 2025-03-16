@@ -1,53 +1,52 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/loginStyles.css">
+  <link rel="stylesheet" href="/css/messageStyles.css">
   <title><%= title %></title>
 </head>
 <body>
-  <h1>Sign Up</h1>
 
-  <!-- Display success messages -->
-  <% if (success && success.length > 0) { %>
-    <div class="success">
-    <!-- array of strings -->
-    <% success.forEach(msg => { %>
-        <p><%= msg %></p>
-    <% }) %>
-    </div>
-  <% } %>
-
-    <!-- Display error messages -->
-    <% if (errors && errors.length > 0) { %>
-      <div style="color: red;">
-          <div class="error">
-              <% errors.forEach(msg => { %>
-                  <p><%= msg %></p>
-                  <!-- <br> -->
-              <% }) %>
-          </div>
+  <div class="message-container">
+    <%- include('./messages.ejs') %>
+  </div>
+  
+  <div class="container2">
+    <h1>Sign Up</h1>
+      
+    <form action="/auth/signup" method="POST">
+      <div class="input-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
       </div>
-  <% } %>
+      <div class="input-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email">
+      </div>
+      <div class="input-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+      </div>
+      <div class="input-group">
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword">
+      </div>
+      <button type="submit">Register</button>
+    </form>
+    
 
-  <form action="/auth/signup" method="POST">
-    <div>
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username">
-    </div>
-    <div>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email">
-    </div>
-    <div>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password">
-    </div>
-    <div>
-      <label for="confirmPassword">Confirm Password:</label>
-      <input type="password" id="confirmPassword" name="confirmPassword">
-    </div>
-    <button type="submit">Register</button>
-  </form>
+  </div>
+
+
 </body>
 </html>
+
+
+
+
+

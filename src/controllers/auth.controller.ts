@@ -14,7 +14,7 @@ export const getSignUp = (req: Request, res: Response) => {
 
 export const postSignUp = async (req: Request, res: Response, next: NextFunction) => {
     try{
-        // validate request body
+
         const userInput: SignUp = signUpSchema.parse(req.body);
         const {username, email, password, role} = userInput;
         
@@ -25,15 +25,12 @@ export const postSignUp = async (req: Request, res: Response, next: NextFunction
           return res.redirect('/auth/signup');
         }
 
-        // create new user 
         const newUser = await User.create({ username, email, password, role });
         await newUser.save();
 
-        // store user ID in session (adding custom properity to express-session (userId))
-        req.session.userId = newUser._id.toString();
+        req.session.user = {id: newUser.id, username: newUser.username, role: "user"};
         
         req.flash('success', 'Sign Up successful !!')
-        // after signup, send him to login || you could send him to homepage as logedin user (I will see that later).
         res.redirect('/auth/login');
     }catch(error){
         errorHandlerFunction('/auth/signup')(error, req, res, () => {});
@@ -44,23 +41,27 @@ export const postSignUp = async (req: Request, res: Response, next: NextFunction
 // login controllers
 
 export const getLogin =  (req: Request, res:Response) => {
-    res.render('login', { title: 'LogIn', query: req.query });
+    if(req.session.user?.id){
+        res.redirect('/');
+        return;
+    } 
+    
+    res.render('login', { title: 'LogIn'});
 };
 
 export const postLogin = async(req: Request, res: Response) => {
     try{
-        // Validate request body
+
         const loginInput :Login = loginSchema.parse(req.body);
         const {email, password} = loginInput;
 
-        // check if the user exist
         const user = await User.findOne({ email });
         if(!user || user.password !== password){
             req.flash('errors', 'Invalid email or password, try again or register if you don\'t have account');
             return res.redirect('/auth/login');
         }
 
-        req.session.userId = user._id.toString();
+        req.session.user = {id: user.id, username: user.username, role: user.role};
 
         req.flash('success', 'LogIn Successful');
         res.redirect('/');
@@ -70,3 +71,21 @@ export const postLogin = async(req: Request, res: Response) => {
     }
 };
 
+// logout
+export const getLogout = (req: Request, res: Response) => {
+    try{
+        
+        req.session.regenerate((err) => {
+            if (err) {
+                console.error('Error regenerating session:', err);
+            }
+                        
+            req.session.user = null;  
+            req.flash('success', 'You have been logged out successfully.');
+            res.redirect('/auth/login');
+        });
+
+    }catch(error){
+        errorHandlerFunction('/auth/login')(error, req, res, () => {})
+    }
+};

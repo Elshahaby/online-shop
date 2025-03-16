@@ -1,0 +1,141 @@
+/* General Page Styling */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Centering the Form */
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Form Container */
+.container2 {
+    background: #1e1e1e;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 420px; 
+    text-align: center;
+    border: 2px solid #ffc107;
+}
+
+/* Input Groups */
+.input-group {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Bigger Input Fields */
+input {
+    width: 93%;
+    padding: 14px;
+    font-size: 16px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background-color: #252525;
+    color: #e0e0e0;
+    transition: all 0.3s ease-in-out;
+    margin-right: 10px;
+}
+
+input:focus {
+    border-color: #ffc107;
+    outline: none;
+    background-color: #222;
+}
+
+/* Login Button */
+button {
+    width: 60%;
+    padding: 12px;
+    font-size: 18px;
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #ffdb70;
+}
+
+/* Signup Link */
+p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+p a {
+    color: #ffc107;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    color: #ffdb70;
+    text-decoration: underline;
+}
+
+.message-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute; /* Ensure it appears above */
+    top: 10px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000; /* Ensure it appears above the form */
+}
+
+.password-container {
+    position: relative;
+    width: 88%;
+}
+
+.password-input {
+    width: 100%;
+    padding: 10px;
+    padding-right: 40px; /* Space for the eye icon */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #888;
+}
+
+.toggle-password:hover {
+    color: #000;
+}
+
+

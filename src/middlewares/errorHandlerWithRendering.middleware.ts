@@ -16,9 +16,6 @@ export const doRendering = (
             return res.render(renderPath, { userInput: req.body, errors: req.flash("errors"), title:'Add Page' });
         }
         if(renderPath === 'admin/editPage'){
-            console.log(req.params);
-            console.log(req.body);
-            console.log('skdjfks',req.body.id);
 
             return res.render(renderPath, { 
                 title: 'Edit Page',
@@ -28,5 +25,17 @@ export const doRendering = (
                 slug: req.params.slug  
             })
         }
+        if(renderPath === 'admin/addCategory'){
+            return res.render(renderPath, { userInput: req.body, errors: req.flash("errors"), title:'Add Category' });
+        }
+        if(renderPath === 'admin/editCategory'){
+            return res.render(renderPath, {
+                title: 'Edit Category',
+                errors: req.flash('errors'),
+                catToEdit: req.body,
+                slug: req.params.slug
+            })
+        }
+        
     }
 }

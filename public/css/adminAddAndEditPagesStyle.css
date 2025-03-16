@@ -1,3 +1,9 @@
+/* Global Dark Theme */
+body {
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+}
+
 /* Dark Theme for Form */
 .dark-theme {
     background: #222;
@@ -80,4 +86,82 @@
 .footer {
     border-top: 3px solid #ffc107;
     font-size: 14px;
+}
+
+/* Style for the placeholder option */
+.default-select {
+    color: #888; /* Gray text for the placeholder */
+    font-style: italic; /* Italicize the placeholder text */
+}
+
+select [selected]{
+    color: #bbb; /* Matches placeholder */
+}
+
+select.form-select {
+    appearance: none; /* Removes default browser arrow */
+    
+    color: #bbb; /* Matches placeholder */
+    
+    padding: 10px 40px 10px 15px;
+    border: 1px solid #666;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='white' d='M2 0L0 2h4z'/%3E%3C/svg%3E"); 
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Change arrow when select is focused (dropdown open) */
+select.form-select:focus {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='white' d='M2 5L0 3h4z'/%3E%3C/svg%3E");
+    background: #333 !important;
+    color: #fff !important;
+    border-color: #00d9ff;
+    box-shadow: 0 0 8px rgba(0, 217, 255, 0.4);
+}
+
+/* Revert back to original style when selection is made */
+select.form-select:not(:focus) {
+    background-color: #2b2b2b;
+    border: 1px solid #555;
+}
+
+/* .product-image {
+    max-width: 150px; 
+    max-height: 150px; 
+    object-fit: cover; 
+    width: 100%;
+} */
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the button under the image */
+    width: 150px; /* Fixed width per image block */
+}
+
+.product-image {
+    width: 100%; /* Makes the image responsive */
+    max-width: 150px; /* Restricts max image size */
+    height: auto;
+    border-radius: 8px; /* Rounded corners */
+    object-fit: cover;
+}
+
+.btn-sm {
+    width: 100%; /* Makes button same width as image */
+}
+
+
+/* Footer */
+.footer {
+    background: #222;
+    color: #ddd;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #ffc107;
 }

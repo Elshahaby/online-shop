@@ -1,0 +1,120 @@
+<%- include('../parts/adminheader.ejs')%>
+<%- include('../parts/adminnav.ejs')%>
+<%- include('../messages.ejs')%>
+
+<link rel="stylesheet" href="/css/adminAddAndEditPagesStyle.css">
+
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="page-title">📝 Add a New Product</h2>
+        <a href="/admin/products" class="btn btn-dark back-button">
+            ⬅ Back to All Products
+        </a>
+    </div>
+</div>
+
+<br>
+
+<div class="container dark-theme card shadow p-4">
+    <form action="/admin/products/addProduct" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-heading text-primary"></i> Product Title
+            </label>
+            <input type="text" class="form-control form-control-lg bg-dark text-white border-secondary" 
+                name="title" value="<%= formData.title || '' %>" placeholder="Enter the product title here">
+        </div>
+        <!-- auto generate sulg if is empty -->
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-link text-primary"></i> Slug <span class="text-muted">(Auto-generated if left empty)</span>
+            </label>
+            <input type="text" class="form-control bg-dark text-white border-secondary" 
+                name="slug" value="<%= formData.slug || '' %>" placeholder="Enter a custom slug (optional)">
+        </div>
+        
+        <!-- Category Dropdown -->
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-tags text-primary"></i> Category
+            </label>
+            <select name="category" class="form-select custom-select">
+                <option class="default-select" value="" selected hidden>Select Category Please</option> <!-- Placeholder option -->
+                <% categories.forEach(category => { %>
+                    <!-- or  <%= category._id %> -->
+                    <option class="bg-dark text-white" value="<%= category._id %>" <%= formData.category === category._id.toString() ? "selected" : '' %> >
+                        <%= category.title %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>          
+
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-align-left text-primary"></i>  Description
+            </label>
+            <textarea name="description" class="form-control bg-dark text-white border-secondary" 
+                rows="6" placeholder="Write your product description here...">
+                    <%= formData.description ? formData.description.trim() : '' %>
+            </textarea>
+        </div>   
+
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-dollar-sign text-primary"></i> Price
+            </label>
+            <input type="number" class="form-control form-control-lg bg-dark text-white border-secondary" 
+                name="price" value="<%= formData.price || '' %>" placeholder="Enter the product price here">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-box-open text-primary"></i> Stock
+            </label>
+            <input type="number" class="form-control form-control-lg bg-dark text-white border-secondary" 
+                name="stock" value="<%= formData.stock || '' %>" placeholder="Enter the product stock here">
+        </div>
+  
+        <div class="mb-3">
+            <label class="form-label text-info">
+                <i class="fas fa-image text-primary"></i> Images
+            </label>
+            <div class="input-group mb-3">
+                <input type="file" id="imageInput" class="form-control form-control-lg bg-dark text-white border-secondary" 
+                    name="images" value="<%= formData.images || '' %>" multiple>
+                <label class="input-group-text" for="inputGroupFile02">Upload</label>
+            </div>
+        </div>
+        <div id="previewContainer"></div>
+
+        <button type="submit" class="btn btn-success w-100">
+            🚀 Create Product
+        </button>
+    </form>
+</div>
+
+
+<script>
+    document.getElementById("imageInput").addEventListener("change", function (event) {
+      const previewContainer = document.getElementById("previewContainer");
+      previewContainer.innerHTML = ""; // Clear previous previews
+      const files = event.target.files;
+  
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.style.width = "100px";
+          img.style.margin = "5px";
+          img.style.borderRadius = "10px";
+          previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+  </script>
+
+<%- include('../parts/adminfooter.ejs')%>

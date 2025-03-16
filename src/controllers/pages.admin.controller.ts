@@ -1,9 +1,11 @@
-import {Request, Response} from 'express'
+import {Express, Request, Response} from 'express'
 import { Page, pageSchema } from '../validators/page.validator';
 import { errorHandlerFunction } from '../middlewares/errorHandlerWithRedirection.middleware';
 import { ZodError } from 'zod';
 import { doRendering } from '../middlewares/errorHandlerWithRendering.middleware';
 import { PageModel } from '../models'
+import { loadPages } from '../utils/loadPages.utils';
+import { app } from "../app";
 
 
 // admin controllers
@@ -27,8 +29,9 @@ export const getAddPages = (req: Request, res: Response) => {
     }
 
     res.render('admin/addPage', { title:'Add Page',userInput });
-   }catch(err){
-    console.log(err);
+   }catch(error){
+    const redirectPath:string = '/admin/pages/addPage';
+    errorHandlerFunction(redirectPath)(error, req, res, () => {})
    }
 }
 
@@ -46,13 +49,15 @@ export const postAddPage = async (req: Request, res: Response) => {
 
         const findPage = await PageModel.findOne({ slug }); 
         if(findPage){
-            req.flash('errors', 'Page slug exists, choose another')
+            req.flash('errors', 'Page slug exists, choose another slug or title')
             return res.redirect('/admin/pages/addPage');
         }
 
         // sorting 100 or any big number to make it shows in /admin/pages at the end of the list
         const page = await new PageModel({ title, slug, content, sorting: 100 });
         await page.save();
+
+        await loadPages(app);
 
         req.flash('success', 'Page added');
         res.redirect('/admin/pages');
@@ -80,6 +85,9 @@ export const postReorderPages = async (req: Request, res:Response) => {
 
             await PageModel.findByIdAndUpdate(id, { sorting: count });
         }
+        
+        await loadPages(app);
+
     }catch(error){
         const redirectPath:string = '/admin/pages';
         errorHandlerFunction(redirectPath)(error, req, res, () => {});
@@ -121,8 +129,10 @@ export const postEditPage = async (req: Request, res: Response) => {
             });
         }
 
-        const page = await PageModel.findByIdAndUpdate(id, { title, slug, content });
+        const page = await PageModel.findByIdAndUpdate(id, { title, slug, content }, {new: true, runValidators: true});
         if(page) await page.save();
+
+        await loadPages(app);
 
         req.flash('success', 'Page Edited');
         res.redirect('/admin/pages');
@@ -144,13 +154,10 @@ export const deletePage = async (req: Request, res:Response) => {
     try{
         await PageModel.findByIdAndDelete(req.params.id);
         
+        await loadPages(app);
 
-        const pages = await PageModel.find().sort({sorting: 1});  // ascending order by sorting properity
-        res.render('admin/pages',{ 
-            title: "Admin Pages",
-            message: 'Page Deleted successfully',
-            pages
-        })
+        res.json({ success: true, message: "Category deleted" });
+
     }catch(error){
         const redirectPath:string = '/admin/pages';
         errorHandlerFunction(redirectPath)(error, req, res, () => {});

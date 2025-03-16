@@ -1,32 +1,95 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="/">Elshahaby Online Shop</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
+                  <% pages.forEach( page => { %>
+                    <% if(page.slug === "home") { %>
+                      <li class="nav-item">
+                        <a class="nav-link <%= (page.title === title) ? 'active' : '' %>" href="/"> <%= page.title %> </a>
+                      </li>
+                    <% } else { %>
+                      <li>
+                        <a class="nav-link <%= (page.title === title) ? 'active' : '' %>" href="/<%= page.slug %>"> <%= page.title %> </a> 
+                      </li>
+                    <% } %>
+                  <% }) %>
               </ul>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-            </div>
-    </div>    
-</nav>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="/cart/checkout">My Cart (
+                    <% if(typeof cart !== "undefined") { %>  
+                      <%= cart.length %>
+                    <% } else { %>  
+                    <% } %>  
+                  )</a>
+                </li> 
+              </ul>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">  
+                <% if(user && user.role == "admin") { %>
+                  <li class="nav-item">
+                    <a href="/admin/pages" class="nav-link">
+                      Admin Area
+                    </a>
+                  </li>
+                  <% } %>
+              </ul>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 "> 
+                <% if(user) { %>
+                  <li class="nav-item">
+                    <a href="/auth/logout" class="nav-link">
+                      Hi, <%= user.username %> ( LogOut )
+                    </a>
+                  </li>
+                <% } else { %>
+                  <li class="nav-item">
+                    <a href="/auth/signup" class="nav-link">
+                      Register
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/auth/login  " class="nav-link">
+                      Login
+                    </a>
+                  </li>
+                  <% } %>
+                </ul>
+                <!-- <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                </form>
+                <button class="btn btn-outline-success" type="submit">Search</button> -->
+              </div>
+            </div>    
+          </nav>
+          
+          <link rel="stylesheet" href="/css/navStyles.css">
+          
+<br>
+<div class="container">
+  <%- include('../messages.ejs')%>
+
+  <% let categoryTitleSafe = typeof matchCat !== 'undefined' ? matchCat : ""; %>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <h3>Categories</h3>
+      <ul class="list-group">
+          <li class="list-group-item <%= (title === 'All Products') ? 'active-category' : '' %>">
+              <a href="/products">All Products</a>
+          </li>
+          <% categories.forEach(category => { %>
+              <li class="list-group-item <%= (category.title === categoryTitleSafe) ? 'active-category' : '' %>">
+                  <a href="/products/<%= category.slug %>">
+                    <%= category.title %>
+                  </a>
+              </li>
+          <% }) %>
+      </ul>
+  </div>
+    <div class="col-xs-12 col-md-1"></div>
+    <div class="col-xs-12 col-md-8">
+

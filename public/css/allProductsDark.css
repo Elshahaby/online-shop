@@ -1,0 +1,90 @@
+/* Global Dark Theme */
+body {
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+}
+
+/* Product Grid */
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Adds space between cards */
+    padding: 20px;
+}
+
+/* Product Card */
+.product-card {
+    background: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+    text-align: center;
+    padding: 15px;
+    min-width: 250px; /* Prevents cards from being too narrow */
+    max-width: 300px; /* Keeps cards from being too wide */
+    transition: transform 0.3s ease-in-out;
+    border: 1px solid #333;
+}
+
+/* Card Hover Effect */
+.product-card:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+    box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Product Image */
+.pimage {
+    width: 100%;
+    height: 250px; /* Ensures uniform height */
+    object-fit: cover; /* Prevents image distortion */
+    border-radius: 10px 10px 0 0; /* Rounds only the top corners */
+    border-bottom: 2px solid #333;
+}
+
+.pa{
+    width: 100%;
+    height: 250px; /* Ensures uniform height */
+    object-fit: cover; /* Prevents image distortion */
+    border-radius: 10px 10px 0 0; /* Rounds only the top corners */
+    border-bottom: 2px solid #333;
+}
+
+/* Product Title */
+.product-card h3 {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    color: #e0e0e0;
+}
+
+/* Product Price */
+.product-card h4 {
+    font-size: 1.1rem;
+    color: #28a745; /* Green color for price */
+    font-weight: bold;
+}
+
+/* View Details Button */
+.vd {
+    display: block;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.vd:hover {
+    background-color: #0056b3;
+}
+
+/* Footer */
+.footer {
+    background: #222;
+    color: #ddd;
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #ffc107;
+}
