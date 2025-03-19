@@ -4,7 +4,7 @@ declare module 'express-session' {
   interface Session {
     user?: {id?: string, username: string, role: string} | null;
     isAdmin?: boolean; 
-    cart?: string[{
+    cart?: string | number [{
       title: string; 
       slug: string;
       quantity: number;

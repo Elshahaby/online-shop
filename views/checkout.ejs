@@ -49,80 +49,9 @@
     <p class="total-price">Total: $<%= parseFloat(total).toFixed(2) %></p>
     
     <a href="/cart/clear" class="btn btn-danger delete-btn">Clear Cart</a>
-    <a class="btn btn-primary buynow" id="buyNowBtn">Buy now</a>
-    
-    <!-- Buy Now and PayPal Button -->
-    <div class="text-center mt-3">
-        
-        <!-- PayPal Button -->
-        <div id="paypal-button-container" class="pp"></div>
-    </div>
-
-    <script>
-    document.getElementById("buyNowBtn").addEventListener("click", function(event) {
-        document.getElementById("paypal-button-container").style.display = "block"; // Show PayPal button
-
-        const cartItems = <%- JSON.stringify(cart) %>; // Convert cart to valid JSON
-
-        document.getElementById("paypal-button-container").innerHTML = "";
-
-
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: '<%= parseFloat(total).toFixed(2) %>', // Set total dynamically
-                            currency_code: "USD",
-                            breakdown: {
-                                item_total: {
-                                    currency_code: "USD",
-                                    value: '<%= parseFloat(total).toFixed(2) %>' // Total of items
-                                }
-                            }
-                        },
-                        items: cartItems.map(product => ({
-                            name: product.title,  // Product Name
-                            quantity: product.quantity,
-                            unit_amount: {
-                                currency_code: "USD",
-                                value: parseFloat(product.price).toFixed(2)
-                            },
-                        }))
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    console.log("Transaction details:", details);
-                    
-                    Swal.fire({
-                        title: "Payment Successful!",
-                        text: "Thank you, " + details.payer.name.given_name + "! Your payment of $" + details.purchase_units[0].amount.value + " was successful.",
-                        icon: "success",
-                        confirmButtonText: "OK"
-                    }).then(() => {
-                        fetch("/cart/buynow", { 
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify(details)    
-                        })
-                        .then(() => window.location.href = "/"); 
-                    });
-                });
-            },
-            onError: function(err) {
-                console.error('PayPal Error:', err);
-                Swal.fire({
-                    title: "Payment Failed",
-                    text: "Something went wrong. Please try again later.",
-                    icon: "error",
-                    confirmButtonText: "OK"
-                });
-            }
-        }).render('#paypal-button-container');
-    })
-  </script>
+    <form action="/cart/buynow" method="POST">
+        <button type="submit" class="btn btn-primary buynow">Buy now</button>
+    </form>
     
 
 <% } else { %>
