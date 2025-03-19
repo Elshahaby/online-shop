@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import bcrypt from 'bcrypt';
 import { signUpSchema, SignUp } from '../validators/auth.validator'
 import { User } from '../models'
 import { errorHandlerFunction } from '../middlewares/errorHandlerWithRedirection.middleware'
@@ -25,7 +26,9 @@ export const postSignUp = async (req: Request, res: Response, next: NextFunction
           return res.redirect('/auth/signup');
         }
 
-        const newUser = await User.create({ username, email, password, role });
+        const hash = await bcrypt.hash(password, 13);
+
+        const newUser = await User.create({ username, email, password: hash, role });
         await newUser.save();
 
         req.session.user = {id: newUser.id, username: newUser.username, role: "user"};
@@ -56,8 +59,15 @@ export const postLogin = async(req: Request, res: Response) => {
         const {email, password} = loginInput;
 
         const user = await User.findOne({ email });
-        if(!user || user.password !== password){
-            req.flash('errors', 'Invalid email or password, try again or register if you don\'t have account');
+        if(!user){
+            req.flash('errors', "Invalid email, try again or register if you don't have account");
+            return res.redirect('/auth/login');
+        }
+
+        const isPassword = await bcrypt.compare(password, user?.password);
+
+        if(!isPassword){
+            req.flash('errors', "wrong Password for this email, try again");
             return res.redirect('/auth/login');
         }
 

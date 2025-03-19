@@ -14,7 +14,7 @@ export const errorHandlerFunction = (
         console.log("Form Data From Error Handler : ", req.session.formData);
 
        // 🛑 DELETE UPLOADED PRODUCT IMAGES IF VALIDATION FAILS
-       if(req.files){
+       if(req.files && Array.isArray(req.files) && req.files.length > 0){
 
            const uploadedFiles = req.files as Express.Multer.File[];
 
