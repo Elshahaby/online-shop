@@ -67,7 +67,7 @@ export const processImages = async (productName: string, files: Express.Multer.F
                 console.log("Deleted original file:", oldFilePath);
 
             }
-            processedImages.push("\\" + newFilePath.replace('/\\/g',"/"));
+            processedImages.push("\\" + newFilePath);
         }
         return processedImages;
     }catch(error){

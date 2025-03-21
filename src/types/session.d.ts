@@ -2,7 +2,7 @@ import 'express-session';
 
 declare module 'express-session' {
   interface Session {
-    user?: {id?: string, username: string, role: string} | null;
+    user?: {id?: string, username: string, role: "admin" | "user"} | null;
     isAdmin?: boolean; 
     cart?: string | number [{
       title: string; 

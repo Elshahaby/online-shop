@@ -9,10 +9,17 @@
 
     <h1 class="page-header"><%= product.title %></h1>
 
-    <div class="col-xs-12 col-md-5">
-      <img src="<%= product.images[0] %>" class="spi">
-      <br>
-    </div>
+    <% if(product.images.length > 0) { %>
+      <div class="col-xs-12 col-md-5">
+        <img src="<%= product.images[0] %>" class="spi">
+        <br>
+      </div>
+    <% } else { %>
+      <div class="col-xs-12 col-md-5">
+        <img src="/uploads/noimage2.png" class="spi">
+        <br>
+      </div>
+    <% } %>
 
     <div class="col-xs-12 col-md-7 gallery-title">
       <h6 class="gallery-title"><%= product.description %></h6>
@@ -25,32 +32,33 @@
 
   <br>
 
-  <div class="col-xs-12">
-    <h6 class="gallery-title"><%= product.title %> Gallery</h6>
-    <ul class="gallery">
-      <li>
-        <a data-fancybox="gallery" href="<%= product.images[0] %>">
-          <img src="<%= product.images[0] %>" alt="">
-        </a>
-      </li>
-      <li>
-        <a data-fancybox="gallery" href="<%= product.images[1] %>">
-          <img src="<%= product.images[1] %>" alt="">
-        </a>
-      </li>
-      <li>
-        <a data-fancybox="gallery" href="<%= product.images[2] %>">
-          <img src="<%= product.images[2] %>" alt="">
-        </a>
-      </li>
-      <li>
-        <a data-fancybox="gallery" href="<%= product.images[3] %>">
-          <img src="<%= product.images[3] %>" alt="">
-        </a>
-      </li>
-    </ul>
-  </div>
-
+  <% if (product.images.length > 0) { %>
+    <div class="col-xs-12">
+      <h6 class="gallery-title"><%= product.title %> Gallery</h6>
+      <ul class="gallery">
+        <li>
+          <a data-fancybox="gallery" href="<%= product.images[0] %>">
+            <img src="<%= product.images[0] %>" alt="">
+          </a>
+        </li>
+        <li>
+          <a data-fancybox="gallery" href="<%= product.images[1] %>">
+            <img src="<%= product.images[1] %>" alt="">
+          </a>
+        </li>
+        <li>
+          <a data-fancybox="gallery" href="<%= product.images[2] %>">
+            <img src="<%= product.images[2] %>" alt="">
+          </a>
+        </li>
+        <li>
+          <a data-fancybox="gallery" href="<%= product.images[3] %>">
+            <img src="<%= product.images[3] %>" alt="">
+          </a>
+        </li>
+      </ul>
+    </div>
+  <% } %>
   
   
   <!-- Authentication Info -->

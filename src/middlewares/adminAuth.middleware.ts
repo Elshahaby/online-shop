@@ -8,7 +8,7 @@ export const isAdmin: RequestHandler = (req: Request, res: Response, next: NextF
     }
     if(req.session.user.role !== 'admin'){
         req.flash('errors', 'Please Login with admin account');
-        res.redirect('/auth/login');
+        res.redirect('/');
         return;
     }
 

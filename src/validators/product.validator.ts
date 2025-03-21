@@ -26,13 +26,13 @@ const slugSchema = z.string()
 .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/,  'Invalid slug format, Only lowercase letters, numbers, and hyphens (-) are allowed, No spaces or special characters, No leading or trailing hyphens, No consecutive hyphens (--)')
 .or(z.literal("")) // allow empty string for auto generation if no slug passed from the form
 
-const priceSchema = z.number({ 
+const priceSchema = z.coerce.number({ 
         required_error: "Price is required",
         invalid_type_error: "Price must be a number" 
 })
 .positive("Price must be a positive number")
  
-const stockSchema =z.number({ 
+const stockSchema =z.coerce.number({ 
     required_error: "Stock is required",
     invalid_type_error: "Stock must be a number" 
 })

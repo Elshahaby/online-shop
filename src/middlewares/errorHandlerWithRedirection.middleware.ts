@@ -11,32 +11,41 @@ export const errorHandlerFunction = (
 
         console.log('Error with Redirection')
         req.session.formData = req.body; // Store form data before redirecting you could add { ...req.body, ...req.files, ...res.file } if you want its content
-        console.log("Form Data From Error Handler : ", req.session.formData);
+        // console.log("Form Data From Error Handler : ", req.session.formData);
 
-       // 🛑 DELETE UPLOADED PRODUCT IMAGES IF VALIDATION FAILS
-       if(req.files && Array.isArray(req.files) && req.files.length > 0){
+        
+        // 🛑 DELETE UPLOADED PRODUCT IMAGES IF VALIDATION FAILS
+        if(req.files && Array.isArray(req.files) && req.files.length > 0){
+            
+            const uploadedFiles = req.files;
+            
+            // Delete each uploaded file
+            uploadedFiles.forEach((file) => {
+                console.log("Uploaded file path : ", file.path)
 
-           const uploadedFiles = req.files as Express.Multer.File[];
+                // const filePath = file.path.replace(/\\/g, "/");
 
-           // Delete each uploaded file
-           uploadedFiles.forEach((file) => {
-               fs.unlinkSync(file.path);
+                console.log("edited file path : ", file.path)
+                if (fs.existsSync(file.path)){
+                    console.log("Delete path")
+                    fs.unlinkSync(file.path); // No need to check existence manually
+                }
            });
-
+           
            console.log("New Files Uploaded is deleted");
-
+           
            // 🛑 Check if the folder is empty, then delete the folder
            const productFolder = path.dirname(uploadedFiles[0].path); // Get the folder path
-
+           
            try {
                const filesInFolder = fs.readdirSync(productFolder);
                if (filesInFolder.length === 0) {
                    fs.rmdirSync(productFolder); // Delete folder if empty
                    console.log(`Deleted empty folder: ${productFolder}`);
-               }
-           } catch (folderError) {
-               console.error("Error checking folder:", folderError);
-           } 
+                }
+            } catch (folderError) {
+                console.error("Error checking folder:", folderError);
+            } 
         }
         
         if(error instanceof ZodError){
@@ -56,7 +65,7 @@ export const errorHandlerFunction = (
             }
             return res.redirect(redirectPath);
         }
-
+        
         if(error instanceof Error){
             console.log("Generic Error");
 

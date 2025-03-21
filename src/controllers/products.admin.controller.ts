@@ -152,14 +152,14 @@ export const postEditProduct = async(req: Request, res: Response) => {
     const UPLOADS_DIR = path.join(__dirname, '../../uploads');
     const PROJECT_FOLDER = path.join(__dirname, '../../');
     
-    console.log(UPLOADS_DIR)
-    console.log(PROJECT_FOLDER);
+    // console.log(UPLOADS_DIR)
+    // console.log(PROJECT_FOLDER);
 
     try{
         await uploadMiddleware(req, res);
 
-        if(req.body.stock) req.body.stock = Number(req.body.stock);
-        if(req.body.price) req.body.price = Number(req.body.price);
+        // if(req.body.stock) req.body.stock = Number(req.body.stock);
+        // if(req.body.price) req.body.price = Number(req.body.price);
         
         const productInput: zProduct = productSchema.parse({files: req.files, ...req.body});
         let {title, slug, description, category, price, stock } = productInput;
@@ -233,9 +233,16 @@ export const postEditProduct = async(req: Request, res: Response) => {
             } 
         }
         
+        // Ensure total images do not exceed 4
+        let totalImages = 0;
+        if(Array.isArray(req.files)) totalImages = updatedImages.length + req.files.length;
+        if (totalImages > 4) {
+            throw new Error("You can only have up to 4 images.");
+        }
+        
         // Process new images
-        if (req.files) {
-            newImages = await processImages(newProductName, req.files as Express.Multer.File[]) || [];
+        if (Array.isArray(req.files) && req.files.length > 0) {
+            newImages = await processImages(newProductName, req.files) || [];
         }
         
         // If all images are deleted and no new images uploaded
@@ -246,22 +253,16 @@ export const postEditProduct = async(req: Request, res: Response) => {
             }
         }
 
-        // Ensure total images do not exceed 4
-        const totalImages = updatedImages.length + newImages.length;
-        if (totalImages > 4) {
-            throw new Error("You can only have up to 4 images.");
-        }
-
         // UPDATE PRODUCT IN DATABASE
         const updatedProduct = await Product.findByIdAndUpdate(
             productId,
             { title, slug, description, category, price, stock, images: [...updatedImages, ...newImages] },
             { new: true, runValidators: true }
         );
-
+        
         req.flash("success", "Product updated successfully");
         res.redirect("/admin/products");
-
+        
     }catch(error){
         const renderPath:string = ''; // admin/editProduct
         const redirectPath:string = `/admin/products/editProduct/${req.params.slug}`;
